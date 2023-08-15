@@ -12,10 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Workflow Dispatcher
-        uses: Codex-/return-dispatch@v1.10.0
+        uses: benc-uk/workflow-dispatch@v1.2.2
         with:
           token: ${{ secrets.TOKEN }}
-          ref: main
-          repo: Hexo
-          owner: A-JiuA
+          repo: A-JiuA/Hexo
           workflow: build.yml
