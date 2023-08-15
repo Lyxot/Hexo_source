@@ -1,0 +1,20 @@
+name: push
+
+on: 
+  push:
+  delete:
+  create:
+  workflow_dispatch:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Workflow Dispatcher
+        uses: adityakar/workflow-dispatcher@v1.0
+        with:
+          owner: A-JiuA
+          repo: Hexo
+          token: ${{ secrets.GITHUB_TOKEN }}
+          event_type: build
