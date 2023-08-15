@@ -8,7 +8,25 @@ on:
   pull_request:
 
 jobs:
+  automerge:
+    runs-on: ubuntu-latest
+    steps:
+      - if: github.event_name == 'pull_request'
+        run: echo ${{ github.event.pull_request.user.name }}
+      - name: automerge
+        if: github.event_name == 'pull_request'
+        uses: "pascalgn/automerge-action@v0.6.1"
+        env:
+          GITHUB_TOKEN: "${{ secrets.TOKEN }}"
+          MERGE_LABELS: ""
+          MERGE_METHOD: "squash"
+          MERGE_COMMIT_MESSAGE: "optimize images"
+          MERGE_FORKS: "false"
+          MERGE_RETRIES: "2"
+          MERGE_RETRY_SLEEP: "10000"
+          UPDATE_METHOD: "rebase"
   build:
+    needs: automerge
     runs-on: ubuntu-latest
     steps:
       - name: Workflow Dispatcher
