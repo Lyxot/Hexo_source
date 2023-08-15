@@ -12,9 +12,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Workflow Dispatcher
-        uses: adityakar/workflow-dispatcher@v1.0
+        uses: Codex-/return-dispatch@v1.10.0
         with:
-          owner: A-JiuA
+          token: ${{ secrets.TOKEN }}
+          ref: main
           repo: Hexo
-          token: ${{ secrets.GITHUB_TOKEN }}
-          event_type: build
+          owner: A-JiuA
+          workflow: build.yml
