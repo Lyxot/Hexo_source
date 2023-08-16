@@ -6,21 +6,20 @@ on:
   create:
   workflow_dispatch:
   pull_request:
+    types: [labeled,opened,edited]
 
 jobs:
   automerge:
     runs-on: ubuntu-latest
     steps:
-      - if: github.event_name == 'pull_request'
-        run: echo ${{ github.event.pull_request.user.name }}
       - name: automerge
-        if: github.event_name == 'pull_request'
-        uses: "pascalgn/automerge-action@v0.6.1"
+        if: github.event_name == 'pull_request' and github.event.pull_request.title == '[ImgBot] Optimize images'
+        uses: "pascalgn/automerge-action@v0.15.6"
         env:
-          GITHUB_TOKEN: "${{ secrets.TOKEN }}"
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           MERGE_LABELS: ""
           MERGE_METHOD: "squash"
-          MERGE_COMMIT_MESSAGE: "optimize images"
+          MERGE_COMMIT_MESSAGE: "pull-request-title"
           MERGE_FORKS: "false"
           MERGE_RETRIES: "2"
           MERGE_RETRY_SLEEP: "10000"
