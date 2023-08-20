@@ -1,4 +1,5 @@
 {
+    "schedule": "daily",
     "ignoredFiles": [
         "img/profile.jpg" 
     ],
