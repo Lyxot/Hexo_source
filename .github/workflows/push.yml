@@ -10,9 +10,9 @@ on:
 jobs:
   automerge:
     runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' && github.event.pull_request.title == '[ImgBot] Optimize images'
     steps:
       - name: automerge
-        if: github.event_name == 'pull_request' && github.event.pull_request.title == '[ImgBot] Optimize images'
         uses: "pascalgn/automerge-action@v0.15.6"
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
@@ -24,8 +24,8 @@ jobs:
           MERGE_RETRY_SLEEP: "10000"
           UPDATE_METHOD: "rebase"
   build:
-    needs: automerge
     runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request'
     steps:
       - name: Workflow Dispatcher
         uses: benc-uk/workflow-dispatch@v1.2.2
